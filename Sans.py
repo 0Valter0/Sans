@@ -1,4 +1,6 @@
 from pygame import *
+from time import sleep
+
 class GameSprite(sprite.Sprite):
     def __init__(self, player_image, player_x, player_y, player_weight, player_height, player_speed, player_speed_x, player_speed_y):
         super().__init__()
@@ -19,13 +21,13 @@ class GameSprite(sprite.Sprite):
 class Player(GameSprite):
     def update(self):
         keys = key.get_pressed()
-        if keys[K_w] and self.rect.y > 510:
+        if keys[K_w] and self.rect.y > 500:
             self.rect.y -= self.speed
-        if keys[K_s] and self.rect.y < 625:
+        if keys[K_s] and self.rect.y < 610:
             self.rect.y += self.speed
-        if keys[K_a] and self.rect.x > 260:
+        if keys[K_a] and self.rect.x > 250:
             self.rect.x -= self.speed
-        if keys[K_d] and self.rect.x < 625:
+        if keys[K_d] and self.rect.x < 610:
             self.rect.x += self.speed
 
 class Image():
@@ -33,6 +35,7 @@ class Image():
         self.weight = image_weight
         self.height = image_height
         self.image = transform.scale(image.load(image1), (image_weight, image_height))
+        self.rect = self.image.get_rect()
         self.rect.x = image_x
         self.rect.y = image_y   
     def reset(self):
@@ -59,35 +62,78 @@ w2 = Wall(255, 255, 255, 250, 500, 10, 150)
 w3 = Wall(255, 255, 255, 250, 650, 400, 10)
 w4 = Wall(255, 255, 255, 650, 500, 10, 160)
 window = display.set_mode((900, 700))
-display.set_caption('Snas')
+display.set_caption('Sans')
 backgroud = transform.scale(image.load('background.jpg'), (900, 700))
-heart = Player('heart.jpg', 450, 550, 25, 25, 3, 3, 3)
+heart = Player('heart.jpg', 450, 550, 50, 50, 3, 3, 3)
 sans_stoit = Image('Санс_стоит.jpg', 355, 200, 200, 300)
 sans_pobezhden = Image('Санс_побежден.jpg', 355, 200, 200, 300)
 sans_atakyet = Image('Санс_атакует.jpg', 355, 200, 200, 300)
+textovoe_oblako = Image('Текстовое_облако.jpg', 570, 150, 200, 200)
 clock = time.Clock()
+mixer.init()
+mixer.music.load('MEGALOVANIA.mp3')
+mixer.music.play()
+font.init()
+font = font.SysFont('Comic Sans MS', 20)
+ready = font.render('Are you ready?', True, (0, 0, 0))
 game = True
 finish = False
+back = True
+play = True
+
+num_for_back = 180
+num_for_back2 = 60
+
+window.blit(backgroud, (0, 0))
 while game:
     for e in event.get():
         if e.type == QUIT:
             game = False
+    
     if not finish:
+        if num_for_back > 0:
+            heart.reset()
+            heart.update()
+
+            sans_stoit.reset()
+            textovoe_oblako.reset()
+            window.blit(ready, (600, 230))
+
+            w1.draw_wall()
+            w2.draw_wall()
+            w3.draw_wall()
+            w4.draw_wall()
+            
+            num_for_back -= 1
+        else:
+            finish = True
+            back = False  
+
+    if not back:
+        if num_for_back2 > 0:
+            window.blit(backgroud, (0, 0))
+
+            num_for_back2 -=1
+        else:
+            back = True
+            play = False
+        
+    if not play:
         window.blit(backgroud, (0, 0))
 
         heart.reset()
         heart.update()
 
-        sans_stoit.reset()
+        sans_atakyet.reset()
 
         w1.draw_wall()
         w2.draw_wall()
         w3.draw_wall()
         w4.draw_wall()
 
-        display.update()
-        clock.tick(60)
-
+    display.update()
+    clock.tick(60)
+    
 # #Labirint from pygame import *
 # window = display.set_mode((900, 700))
 # display.set_caption('Maze')
