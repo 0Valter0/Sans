@@ -1,13 +1,13 @@
 from pygame import *
 class GameSprite(sprite.Sprite):
-    def __init__(self, player_image, player_x, player_y, player_weight, player_hight, player_speed, player_speed_x, player_speed_y):
+    def __init__(self, player_image, player_x, player_y, player_weight, player_height, player_speed, player_speed_x, player_speed_y):
         super().__init__()
-        self.image = transform.scale(image.load(player_image), (player_weight, player_hight))
+        self.image = transform.scale(image.load(player_image), (player_weight, player_height))
         self.rect = self.image.get_rect()
         self.rect.x = player_x
         self.rect.y = player_y
         self.weight = player_weight
-        self.hight = player_hight 
+        self.height = player_height 
         self.speed = player_speed
         self.speed_x = player_speed_x
         self.speed_y = player_speed_y
@@ -28,6 +28,16 @@ class Player(GameSprite):
         if keys[K_d] and self.rect.x < 625:
             self.rect.x += self.speed
 
+class Image():
+    def __init__(self, image1, image_x, image_y, image_weight, image_height):
+        self.weight = image_weight
+        self.height = image_height
+        self.image = transform.scale(image.load(image1), (image_weight, image_height))
+        self.rect.x = image_x
+        self.rect.y = image_y   
+    def reset(self):
+        window.blit(self.image, (self.rect.x, self.rect.y))
+
 class Wall(sprite.Sprite):
     def __init__(self, color_1, color_2, color_3, wall_x, wall_y, wall_width, wall_height):
         super().__init__()
@@ -44,14 +54,17 @@ class Wall(sprite.Sprite):
     def draw_wall(self):
         window.blit(self.image, (self.rect.x, self.rect.y))
 
-w1 = Wall(0, 0, 0, 250, 500, 400, 10)
-w2 = Wall(0, 0, 0, 250, 500, 10, 150)
-w3 = Wall(0, 0, 0, 250, 650, 400, 10)
-w4 = Wall(0, 0, 0, 650, 500, 10, 160)
+w1 = Wall(255, 255, 255, 250, 500, 400, 10)
+w2 = Wall(255, 255, 255, 250, 500, 10, 150)
+w3 = Wall(255, 255, 255, 250, 650, 400, 10)
+w4 = Wall(255, 255, 255, 650, 500, 10, 160)
 window = display.set_mode((900, 700))
 display.set_caption('Snas')
 backgroud = transform.scale(image.load('background.jpg'), (900, 700))
 heart = Player('heart.jpg', 450, 550, 25, 25, 3, 3, 3)
+sans_stoit = Image('Санс_стоит.jpg', 355, 200, 200, 300)
+sans_pobezhden = Image('Санс_побежден.jpg', 355, 200, 200, 300)
+sans_atakyet = Image('Санс_атакует.jpg', 355, 200, 200, 300)
 clock = time.Clock()
 game = True
 finish = False
@@ -64,6 +77,8 @@ while game:
 
         heart.reset()
         heart.update()
+
+        sans_stoit.reset()
 
         w1.draw_wall()
         w2.draw_wall()
