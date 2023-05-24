@@ -1,5 +1,4 @@
 from pygame import *
-from time import sleep
 
 class GameSprite(sprite.Sprite):
     def __init__(self, player_image, player_x, player_y, player_weight, player_height, player_speed, player_speed_x, player_speed_y):
@@ -225,7 +224,7 @@ while game:
     if not num_two:
         if num_for_background2 > 0:
             window.blit(backgroud, (0, 0))
-            num_for_background2 -=1
+            num_for_background2 -= 1
         else:
             num_two = True
             play_again = False
