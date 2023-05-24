@@ -105,27 +105,28 @@ bones_vertical_left = sprite.Group()
 bones_vertical_right = sprite.Group()
 
 for i in range(1, 5):
-    bone_gorisontal_down = Bones_gorisontal_down1('Кость_вертикальная.jpg', 670, 600, 10, 100, 7, 7, 7)
+    bone_gorisontal_down = Bones_gorisontal_down1('Кость_вертикальная.jpg', 670, 600, 10, 100, 3, 3, 3)
     bones_gorisontal_down.add(bone_gorisontal_down)
 
 for i in range(1, 5):
-    bone_gorisontal_up = Bones_gorisontal_up1('Кость_вертикальная.jpg', 230, 450, 10, 100, 7, 7, 7)
+    bone_gorisontal_up = Bones_gorisontal_up1('Кость_вертикальная.jpg', 230, 450, 10, 100, 3, 3, 3)
     bones_gorisontal_up.add(bone_gorisontal_up)
 
 for i in range(1, 5):
-    bone_vertical_left = Bones_vertical_left1('Кость_горизонтальная.jpg', 335, 130, 100, 10, 7, 7, 7)
+    bone_vertical_left = Bones_vertical_left1('Кость_горизонтальная.jpg', 335, 130, 100, 10, 3, 3, 3)
     bones_vertical_left.add(bone_vertical_left)
 
 for i in range(1, 5):
-    bone_vertical_right = Bones_vertical_right1('Кость_горизонтальная.jpg', 490, 555, 100, 10, 7, 7, 7)
+    bone_vertical_right = Bones_vertical_right1('Кость_горизонтальная.jpg', 490, 555, 100, 10, 3, 3, 3)
     bones_vertical_right.add(bone_vertical_right)
 
-heart = Player('heart.jpg', 450, 550, 50, 50, 3, 3, 3)
+heart_gorisontal = Player('heart.jpg', 450, 550, 50, 50, 3, 3, 3)
+heart_vertical = Player('heart.jpg', 450, 350, 50, 50, 3, 3, 3)
 sans_stoit = Image('Санс_стоит.jpg', 355, 200, 200, 300)
 sans_pobezhden = Image('Санс_побежден.jpg', 355, 200, 200, 300)
-sans_atakyet_gorisontal = Image('Санс_атакует.jpg', 355, 100, 200, 300)
-sans_atakyet_vertical_right = Image('Санс_атакует.jpg', 600, 180, 200, 300)
-sans_atakyet_vertical_left = Image('Санс_атакует.jpg', 100, 180, 200, 300)
+sans_atakyet = Image('Санс_атакует.jpg', 355, 100, 200, 300)
+sans_atakyet_right = Image('Санс_атакует_правый.jpg', 600, 180, 200, 300)
+sans_atakyet_left = Image('Санс_атакует.jpg', 100, 180, 200, 300)
 textovoe_oblako = Image('Текстовое_облако.jpg', 570, 150, 200, 200)
 
 clock = time.Clock()
@@ -156,8 +157,8 @@ while game:
     
     if not finish:
         if num_for_one > 0:
-            heart.reset()
-            heart.update_gorisontal()
+            heart_gorisontal.reset()
+            heart_gorisontal.update_gorisontal()
 
             sans_stoit.reset()
             textovoe_oblako.reset()
@@ -186,10 +187,10 @@ while game:
         if num_for_two > 0:   
             window.blit(backgroud, (0, 0))
 
-            heart.reset()
-            heart.update_gorisontal()
+            heart_gorisontal.reset()
+            heart_gorisontal.update_gorisontal()
 
-            sans_atakyet_gorisontal.reset()
+            sans_atakyet.reset()
 
             w1.draw_wall()
             w2.draw_wall()
@@ -208,13 +209,13 @@ while game:
             for bone_gorisontal_down in bones_gorisontal_down:
                 if bone_gorisontal_down.rect.collidepoint(230, 600):
                     bone_gorisontal_down.kill()
-                    bone_gorisontal_down = Bones_gorisontal_down1('Кость_вертикальная.jpg', 670, 600, 10, 100, 7, 7, 7)
+                    bone_gorisontal_down = Bones_gorisontal_down1('Кость_вертикальная.jpg', 670, 600, 10, 100, 3, 3, 3)
                     bones_gorisontal_down.add(bone_gorisontal_down)
 
             for bone_gorisontal_up in bones_gorisontal_up:
                 if bone_gorisontal_up.rect.collidepoint(670, 450):
                     bone_gorisontal_up.kill()
-                    bone_gorisontal_up = Bones_gorisontal_up1('Кость_вертикальная.jpg', 230, 450, 10, 100, 7, 7, 7)
+                    bone_gorisontal_up = Bones_gorisontal_up1('Кость_вертикальная.jpg', 230, 450, 10, 100, 3, 3, 3)
                     bones_gorisontal_up.add(bone_gorisontal_up)
             num_for_two -= 1
         else:
@@ -232,11 +233,11 @@ while game:
     if not play_again:
         window.blit(backgroud, (0, 0))
 
-        heart.reset()
-        heart.update_vertival()
+        heart_vertical.reset()
+        heart_vertical.update_vertival()
 
-        sans_atakyet_vertical_right.reset()
-        sans_atakyet_vertical_left.reset()
+        sans_atakyet_right.reset()
+        sans_atakyet_left.reset()
 
         w5.draw_wall()
         w6.draw_wall()
@@ -254,13 +255,13 @@ while game:
         for bone_vertical_right in bones_vertical_right:
             if bone_vertical_right.rect.collidepoint(490, 130):
                 bone_vertical_right.kill()
-                bone_vertical_right = Bones_vertical_right1('Кость_горизонтальная.jpg', 490, 555, 100, 10, 7, 7, 7)
+                bone_vertical_right = Bones_vertical_right1('Кость_горизонтальная.jpg', 490, 555, 100, 10, 3, 3, 3)
                 bones_vertical_right.add(bone_vertical_right)
 
         for bone_vertical_left in bones_vertical_left:
             if bone_vertical_left.rect.collidepoint(335, 555):
                 bone_vertical_left.kill()
-                bone_vertical_left = Bones_vertical_left1('Кость_горизонтальная.jpg', 335, 130, 100, 10, 7, 7, 7)
+                bone_vertical_left = Bones_vertical_left1('Кость_горизонтальная.jpg', 335, 130, 100, 10, 3, 3, 3)
                 bones_vertical_left.add(bone_vertical_left)
 
     display.update()
