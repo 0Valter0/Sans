@@ -1,4 +1,5 @@
 from pygame import *
+from time import sleep
 
 class GameSprite(sprite.Sprite):
     def __init__(self, player_image, player_x, player_y, player_weight, player_height, player_speed, player_speed_x, player_speed_y):
@@ -102,22 +103,26 @@ bones_gorisontal_up = sprite.Group()
 bones_gorisontal_down = sprite.Group()
 bones_vertical_left = sprite.Group()
 bones_vertical_right = sprite.Group()
-
+y = 670
 for i in range(1, 5):
-    bone_gorisontal_down = Bones_gorisontal_down1('Кость_вертикальная.jpg', 670, 600, 10, 100, 3, 3, 3)
+    bone_gorisontal_down = Bones_gorisontal_down1('Кость_вертикальная.jpg', y, 580, 10, 100, 3, 3, 3)
     bones_gorisontal_down.add(bone_gorisontal_down)
-
+    y += 100
+x = 230
 for i in range(1, 5):
-    bone_gorisontal_up = Bones_gorisontal_up1('Кость_вертикальная.jpg', 230, 450, 10, 100, 3, 3, 3)
+    bone_gorisontal_up = Bones_gorisontal_up1('Кость_вертикальная.jpg', x, 470, 10, 100, 4, 4, 4)
     bones_gorisontal_up.add(bone_gorisontal_up)
-
+    x -= 100
+z = 130
 for i in range(1, 5):
-    bone_vertical_left = Bones_vertical_left1('Кость_горизонтальная.jpg', 335, 130, 100, 10, 3, 3, 3)
+    bone_vertical_left = Bones_vertical_left1('Кость_горизонтальная.jpg', 355, z, 100, 10, 3, 3, 3)
     bones_vertical_left.add(bone_vertical_left)
-
+    z -= 100
+c = 555
 for i in range(1, 5):
-    bone_vertical_right = Bones_vertical_right1('Кость_горизонтальная.jpg', 490, 555, 100, 10, 3, 3, 3)
+    bone_vertical_right = Bones_vertical_right1('Кость_горизонтальная.jpg', 470, c, 100, 10, 4, 4, 4)
     bones_vertical_right.add(bone_vertical_right)
+    c += 100
 
 heart_gorisontal = Player('heart.jpg', 450, 550, 50, 50, 3, 3, 3)
 heart_vertical = Player('heart.jpg', 450, 350, 50, 50, 3, 3, 3)
@@ -206,15 +211,15 @@ while game:
                 b.update()
 
             for bone_gorisontal_down in bones_gorisontal_down:
-                if bone_gorisontal_down.rect.collidepoint(230, 600):
+                if bone_gorisontal_down.rect.collidepoint(230, 580):
                     bone_gorisontal_down.kill()
-                    bone_gorisontal_down = Bones_gorisontal_down1('Кость_вертикальная.jpg', 670, 600, 10, 100, 3, 3, 3)
+                    bone_gorisontal_down = Bones_gorisontal_down1('Кость_вертикальная.jpg', 630, 580, 10, 100, 3, 3, 3)
                     bones_gorisontal_down.add(bone_gorisontal_down)
 
             for bone_gorisontal_up in bones_gorisontal_up:
-                if bone_gorisontal_up.rect.collidepoint(670, 450):
+                if bone_gorisontal_up.rect.collidepoint(670, 470):
                     bone_gorisontal_up.kill()
-                    bone_gorisontal_up = Bones_gorisontal_up1('Кость_вертикальная.jpg', 230, 450, 10, 100, 3, 3, 3)
+                    bone_gorisontal_up = Bones_gorisontal_up1('Кость_вертикальная.jpg', 260, 470, 10, 100, 4, 4, 4)
                     bones_gorisontal_up.add(bone_gorisontal_up)
             num_for_two -= 1
         else:
@@ -252,15 +257,15 @@ while game:
             b.update()
 
         for bone_vertical_right in bones_vertical_right:
-            if bone_vertical_right.rect.collidepoint(490, 130):
+            if bone_vertical_right.rect.collidepoint(470, 130):
                 bone_vertical_right.kill()
-                bone_vertical_right = Bones_vertical_right1('Кость_горизонтальная.jpg', 490, 555, 100, 10, 3, 3, 3)
+                bone_vertical_right = Bones_vertical_right1('Кость_горизонтальная.jpg', 470, 555, 100, 10, 4, 4, 4)
                 bones_vertical_right.add(bone_vertical_right)
 
         for bone_vertical_left in bones_vertical_left:
-            if bone_vertical_left.rect.collidepoint(335, 555):
+            if bone_vertical_left.rect.collidepoint(355, 555):
                 bone_vertical_left.kill()
-                bone_vertical_left = Bones_vertical_left1('Кость_горизонтальная.jpg', 335, 130, 100, 10, 3, 3, 3)
+                bone_vertical_left = Bones_vertical_left1('Кость_горизонтальная.jpg', 355, 130, 100, 10, 3, 3, 3)
                 bones_vertical_left.add(bone_vertical_left)
 
     display.update()
