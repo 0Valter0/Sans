@@ -167,6 +167,7 @@ font.init()
 font = font.SysFont('Comic Sans MS', 20)
 ready = font.render('Are you ready?', True, (0, 0, 0))
 gameover_text = font.render('Ok, you win', True, (0, 0, 0))
+lose_text = font.render('Ha-ha-ha, you lose', True, (0, 0, 0))
 
 life = 5
 
@@ -207,6 +208,7 @@ num_for_eight = 250
 num_for_nine = 250
 num_for_ten = 250
 num_for_eleven = 50
+lose = 120
 
 num_for_background1 = 60
 num_for_background2 = 60
@@ -222,7 +224,6 @@ num_for_background10 = 60
 window.blit(backgroud, (0, 0))
 
 while game:
-
     keys = key.get_pressed()
     if keys[K_p]:
         life = 1000
@@ -230,7 +231,31 @@ while game:
     for e in event.get():
         if e.type == QUIT:
             game = False
+            
+    if sprite.spritecollide(heart_gorisontal, bones_gorisontal_down, False) or sprite.spritecollide(heart_gorisontal, bones_gorisontal_up, False) or sprite.spritecollide(heart_gorisontal, bones_gorisontal_up_fast, False) or sprite.spritecollide(heart_gorisontal, bones_gorisontal_down_fast, False) or sprite.spritecollide(heart_gorisontal, bones_gorisontal_up_fast2, False) or sprite.spritecollide(heart_gorisontal, bones_gorisontal_down_fast2, False):
+        life -= 1
     
+    if sprite.spritecollide(heart_vertical, bones_vertical_left, False) or sprite.spritecollide(heart_vertical, bones_vertical_left_fast, False) or sprite.spritecollide(heart_vertical, bones_vertical_right, False) or sprite.spritecollide(heart_vertical, bones_vertical_right_fast, False):
+        life -= 1
+    
+    if life < 0:
+        # if lose >= 0:
+        #     heart_gorisontal.reset()
+        #     heart_gorisontal.update_gorisontal()
+
+        #     sans_pobezhden.reset()
+        #     textovoe_oblako.reset()
+        #     window.blit(lose_text, (620, 220))
+
+        #     w1.draw_wall()
+        #     w2.draw_wall()
+        #     w3.draw_wall()
+        #     w4.draw_wall()
+
+        #     lose -= 1
+        # else:
+        game = False
+
     if not finish:
         if num_for_one > 0:
             heart_gorisontal.reset()
@@ -660,7 +685,6 @@ while game:
         w2.draw_wall()
         w3.draw_wall()
         w4.draw_wall()
-
+    print(life)
     display.update()
     clock.tick(60)
-    print(life)
