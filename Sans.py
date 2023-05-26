@@ -103,12 +103,10 @@ bones_gorisontal_up = sprite.Group()
 bones_gorisontal_down = sprite.Group()
 bones_vertical_left = sprite.Group()
 bones_vertical_right = sprite.Group()
-
 bones_gorisontal_up_fast = sprite.Group()
 bones_gorisontal_down_fast = sprite.Group()
 bones_gorisontal_up_fast2 = sprite.Group()
 bones_gorisontal_down_fast2 = sprite.Group()
-
 bones_vertical_left_fast = sprite.Group()
 bones_vertical_right_fast = sprite.Group()
 
@@ -176,7 +174,7 @@ game = True
 finish = False
 play = True
 gameover = True
-
+play_again = True
 play_again = True
 play_again1 = True
 play_again2 = True
@@ -185,6 +183,7 @@ play_again4 = True
 play_again5 = True
 play_again6 = True
 play_again7 = True
+
 
 num_one = True
 num_two = True
@@ -664,3 +663,4 @@ while game:
 
     display.update()
     clock.tick(60)
+    print(life)
