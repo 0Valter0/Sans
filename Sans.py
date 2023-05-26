@@ -103,31 +103,61 @@ bones_gorisontal_up = sprite.Group()
 bones_gorisontal_down = sprite.Group()
 bones_vertical_left = sprite.Group()
 bones_vertical_right = sprite.Group()
+
+bones_gorisontal_up_fast = sprite.Group()
+bones_gorisontal_down_fast = sprite.Group()
+bones_gorisontal_up_fast2 = sprite.Group()
+bones_gorisontal_down_fast2 = sprite.Group()
+
+bones_vertical_left_fast = sprite.Group()
+bones_vertical_right_fast = sprite.Group()
+
 y = 670
 for i in range(1, 5):
     bone_gorisontal_down = Bones_gorisontal_down1('Кость_вертикальная.jpg', y, 580, 10, 100, 3, 3, 3)
     bones_gorisontal_down.add(bone_gorisontal_down)
     y += 100
+
 x = 230
 for i in range(1, 5):
     bone_gorisontal_up = Bones_gorisontal_up1('Кость_вертикальная.jpg', x, 470, 10, 100, 4, 4, 4)
     bones_gorisontal_up.add(bone_gorisontal_up)
     x -= 100
+
 z = 130
 for i in range(1, 5):
     bone_vertical_left = Bones_vertical_left1('Кость_горизонтальная.jpg', 355, z, 100, 10, 3, 3, 3)
     bones_vertical_left.add(bone_vertical_left)
     z -= 100
+
 c = 555
 for i in range(1, 5):
     bone_vertical_right = Bones_vertical_right1('Кость_горизонтальная.jpg', 470, c, 100, 10, 4, 4, 4)
     bones_vertical_right.add(bone_vertical_right)
     c += 100
 
+bone_gorisontal_down_fast = Bones_gorisontal_down1('Кость_вертикальная.jpg', 670, 580, 10, 100, 10, 10, 10)
+bones_gorisontal_down_fast.add(bone_gorisontal_down_fast)
+
+bone_gorisontal_up_fast = Bones_gorisontal_up1('Кость_вертикальная.jpg', 230, 470, 10, 100, 8, 8, 8)
+bones_gorisontal_up_fast.add(bone_gorisontal_up_fast)
+
+bone_gorisontal_down_fast2 = Bones_gorisontal_down1('Кость_вертикальная.jpg', 670, 580, 10, 100, 10, 10, 10)
+bones_gorisontal_down_fast2.add(bone_gorisontal_down_fast2)
+
+bone_gorisontal_up_fast2 = Bones_gorisontal_up1('Кость_вертикальная.jpg', 230, 470, 10, 100, 8, 8, 8)
+bones_gorisontal_up_fast2.add(bone_gorisontal_up_fast2)
+
+bone_vertical_left_fast = Bones_vertical_left1('Кость_горизонтальная.jpg', 355, 130, 100, 10, 10, 10, 10)
+bones_vertical_left_fast.add(bone_vertical_left_fast)
+
+bone_vertical_right_fast = Bones_vertical_right1('Кость_горизонтальная.jpg', 470, 555, 100, 10, 8, 8, 8)
+bones_vertical_right_fast.add(bone_vertical_right_fast)
+
 heart_gorisontal = Player('heart.jpg', 450, 550, 50, 50, 3, 3, 3)
 heart_vertical = Player('heart.jpg', 450, 350, 50, 50, 3, 3, 3)
 sans_stoit = Image('Санс_стоит.jpg', 355, 200, 200, 300)
-sans_pobezhden = Image('Санс_побежден.jpg', 355, 200, 200, 300)
+sans_pobezhden = Image('Санс_побежден.jpg', 355, 210, 200, 300)
 sans_atakyet = Image('Санс_атакует.jpg', 355, 100, 200, 300)
 sans_atakyet_right = Image('Санс_атакует_правый.jpg', 600, 180, 200, 300)
 sans_atakyet_left = Image('Санс_атакует.jpg', 100, 180, 200, 300)
@@ -138,23 +168,66 @@ clock = time.Clock()
 font.init()
 font = font.SysFont('Comic Sans MS', 20)
 ready = font.render('Are you ready?', True, (0, 0, 0))
+gameover_text = font.render('Ok, you win', True, (0, 0, 0))
+
+life = 5
 
 game = True
 finish = False
 play = True
+gameover = True
+
 play_again = True
+play_again1 = True
+play_again2 = True
+play_again3 = True
+play_again4 = True
+play_again5 = True
+play_again6 = True
+play_again7 = True
+
 num_one = True
 num_two = True
+num_three = True
+num_four = True
+num_five = True
+num_six = True
+num_seven = True
+num_eight = True
+num_nine = True
+num_ten = True
 
 num_for_one = 180
 num_for_two = 250
+num_for_three = 250
+num_for_four = 250
+num_for_five = 250
+num_for_six = 50
+num_for_seven = 50
+num_for_eight = 250
+num_for_nine = 250
+num_for_ten = 250
+num_for_eleven = 50
+
 num_for_background1 = 60
 num_for_background2 = 60
-
+num_for_background3 = 60
+num_for_background4 = 60
+num_for_background5 = 60
+num_for_background6 = 60
+num_for_background7 = 60
+num_for_background8 = 60
+num_for_background9 = 60
+num_for_background10 = 60
 
 window.blit(backgroud, (0, 0))
 
 while game:
+
+    keys = key.get_pressed()
+    if keys[K_p]:
+        life = 1000
+
     for e in event.get():
         if e.type == QUIT:
             game = False
@@ -235,38 +308,359 @@ while game:
             play_again = False
     
     if not play_again:
-        window.blit(backgroud, (0, 0))
+        if num_for_three > 0:
+            window.blit(backgroud, (0, 0))
 
-        heart_vertical.reset()
-        heart_vertical.update_vertival()
+            heart_vertical.reset()
+            heart_vertical.update_vertival()
 
-        sans_atakyet_right.reset()
-        sans_atakyet_left.reset()
+            sans_atakyet_right.reset()
+            sans_atakyet_left.reset()
 
-        w5.draw_wall()
-        w6.draw_wall()
-        w7.draw_wall()
-        w8.draw_wall()
+            w5.draw_wall()
+            w6.draw_wall()
+            w7.draw_wall()
+            w8.draw_wall()
 
-        bones_vertical_left.draw(window)
-        for b in bones_vertical_left:
-            b.update()
+            bones_vertical_left.draw(window)
+            for b in bones_vertical_left:
+                b.update()
 
-        bones_vertical_right.draw(window)
-        for b in bones_vertical_right:
-            b.update()
+            bones_vertical_right.draw(window)
+            for b in bones_vertical_right:
+                b.update()
 
-        for bone_vertical_right in bones_vertical_right:
-            if bone_vertical_right.rect.collidepoint(470, 130):
-                bone_vertical_right.kill()
-                bone_vertical_right = Bones_vertical_right1('Кость_горизонтальная.jpg', 470, 555, 100, 10, 4, 4, 4)
-                bones_vertical_right.add(bone_vertical_right)
+            for bone_vertical_right in bones_vertical_right:
+                if bone_vertical_right.rect.collidepoint(470, 130):
+                    bone_vertical_right.kill()
+                    bone_vertical_right = Bones_vertical_right1('Кость_горизонтальная.jpg', 470, 555, 100, 10, 4, 4, 4)
+                    bones_vertical_right.add(bone_vertical_right)
 
-        for bone_vertical_left in bones_vertical_left:
-            if bone_vertical_left.rect.collidepoint(355, 555):
-                bone_vertical_left.kill()
-                bone_vertical_left = Bones_vertical_left1('Кость_горизонтальная.jpg', 355, 130, 100, 10, 3, 3, 3)
-                bones_vertical_left.add(bone_vertical_left)
+            for bone_vertical_left in bones_vertical_left:
+                if bone_vertical_left.rect.collidepoint(355, 555):
+                    bone_vertical_left.kill()
+                    bone_vertical_left = Bones_vertical_left1('Кость_горизонтальная.jpg', 355, 130, 100, 10, 3, 3, 3)
+                    bones_vertical_left.add(bone_vertical_left)
+            num_for_three -= 1
+        else:
+            num_three = False
+            play_again = True
+        
+    if not num_three:
+        if num_for_background3 > 0:
+            window.blit(backgroud, (0, 0))
+            num_for_background3 -= 1
+        else:
+            num_three = True
+            play_again1 = False
+        
+    if not play_again1:
+        if num_for_four > 0:
+            window.blit(backgroud, (0, 0))
+
+            heart_gorisontal.reset()
+            heart_gorisontal.update_gorisontal()
+
+            sans_atakyet.reset()
+
+            w1.draw_wall()
+            w2.draw_wall()
+            w3.draw_wall()
+            w4.draw_wall()
+
+            for b in bones_gorisontal_down:
+                b.update()
+            bones_gorisontal_down.draw(window)
+
+
+            bones_gorisontal_up.draw(window)
+            for b in bones_gorisontal_up:
+                b.update()
+
+            for bone_gorisontal_down in bones_gorisontal_down:
+                if bone_gorisontal_down.rect.collidepoint(230, 580):
+                    bone_gorisontal_down.kill()
+                    bone_gorisontal_down = Bones_gorisontal_down1('Кость_вертикальная.jpg', 630, 580, 10, 100, 3, 3, 3)
+                    bones_gorisontal_down.add(bone_gorisontal_down)
+
+            for bone_gorisontal_up in bones_gorisontal_up:
+                if bone_gorisontal_up.rect.collidepoint(670, 470):
+                    bone_gorisontal_up.kill()
+                    bone_gorisontal_up = Bones_gorisontal_up1('Кость_вертикальная.jpg', 260, 470, 10, 100, 4, 4, 4)
+                    bones_gorisontal_up.add(bone_gorisontal_up)
+            num_for_four -= 1
+        else:
+            num_four = False
+            play_again1 = True
+
+    if not num_four:
+        if num_for_background4 > 0:
+            window.blit(backgroud, (0, 0))
+            num_for_background4 -= 1
+        else:
+            num_four = True
+            play_again2 = False
+    
+    if not play_again2:
+        if num_for_five > 0:
+            window.blit(backgroud, (0, 0))
+
+            heart_vertical.reset()
+            heart_vertical.update_vertival()
+
+            sans_atakyet_right.reset()
+            sans_atakyet_left.reset()
+
+            w5.draw_wall()
+            w6.draw_wall()
+            w7.draw_wall()
+            w8.draw_wall()
+
+            bones_vertical_left.draw(window)
+            for b in bones_vertical_left:
+                b.update()
+
+            bones_vertical_right.draw(window)
+            for b in bones_vertical_right:
+                b.update()
+
+            for bone_vertical_right in bones_vertical_right:
+                if bone_vertical_right.rect.collidepoint(470, 130):
+                    bone_vertical_right.kill()
+                    bone_vertical_right = Bones_vertical_right1('Кость_горизонтальная.jpg', 470, 555, 100, 10, 4, 4, 4)
+                    bones_vertical_right.add(bone_vertical_right)
+
+            for bone_vertical_left in bones_vertical_left:
+                if bone_vertical_left.rect.collidepoint(355, 555):
+                    bone_vertical_left.kill()
+                    bone_vertical_left = Bones_vertical_left1('Кость_горизонтальная.jpg', 355, 130, 100, 10, 3, 3, 3)
+                    bones_vertical_left.add(bone_vertical_left)
+            num_for_five -= 1
+        else:
+            num_five = False
+            play_again2 = True
+    
+    if not num_five:
+        if num_for_background5 > 0:
+            window.blit(backgroud, (0, 0))
+            num_for_background5 -= 1
+        else:
+            num_five = True
+            play_again3 = False
+    
+    if not play_again3:
+        if num_for_six > 0:
+            window.blit(backgroud, (0, 0))
+
+            heart_gorisontal.reset()
+            heart_gorisontal.update_gorisontal()
+
+            sans_atakyet.reset()
+
+            w1.draw_wall()
+            w2.draw_wall()
+            w3.draw_wall()
+            w4.draw_wall()
+
+            for b in bones_gorisontal_down_fast:
+                b.update()
+            bones_gorisontal_up_fast.draw(window)
+
+            for b in bones_gorisontal_up_fast:
+                b.update()
+            bones_gorisontal_down_fast.draw(window)
+
+            num_for_six -= 1
+        else:
+            num_six = False
+            play_again3 = True
+
+    if not num_six:
+        if num_for_background6 > 0:
+            window.blit(backgroud, (0, 0))
+            num_for_background6 -= 1
+        else:
+            num_six = True
+            play_again4 = False
+
+    if not play_again4:
+        if num_for_eleven > 0:
+            window.blit(backgroud, (0, 0))
+
+            heart_gorisontal.reset()
+            heart_gorisontal.update_vertival()
+
+            sans_atakyet_right.reset()
+            sans_atakyet_left.reset()
+
+            w5.draw_wall()
+            w6.draw_wall()
+            w7.draw_wall()
+            w8.draw_wall()
+
+            for b in bones_vertical_right_fast:
+                b.update()
+            bones_vertical_right_fast.draw(window)
+
+
+            bones_vertical_left_fast.draw(window)
+            for b in bones_vertical_left_fast:
+                b.update()
+
+            num_for_eleven -= 1
+        else:
+            num_seven = False
+            play_again4 = True
+
+    if not num_seven:
+        if num_for_background7 > 0:
+            window.blit(backgroud, (0, 0))
+            num_for_background7 -= 1
+        else:
+            num_seven = True
+            play_again5 = False
+
+    if not play_again5:
+        if num_for_seven > 0:
+            window.blit(backgroud, (0, 0))
+
+            heart_gorisontal.reset()
+            heart_gorisontal.update_gorisontal()
+
+            sans_atakyet.reset()
+
+            w1.draw_wall()
+            w2.draw_wall()
+            w3.draw_wall()
+            w4.draw_wall()
+            
+            for b in bones_gorisontal_down_fast2:
+                b.update()
+            bones_gorisontal_up_fast2.draw(window)
+
+            for b in bones_gorisontal_up_fast2:
+                b.update()
+            bones_gorisontal_down_fast2.draw(window)
+
+            num_for_seven -= 1
+        else:
+            num_eight = False
+            play_again5 = True
+
+    if not num_eight:
+        if num_for_background8 > 0:
+            window.blit(backgroud, (0, 0))
+            num_for_background8 -= 1
+        else:
+            num_eight = True
+            play_again6 = False
+
+    if not play_again6:
+        if num_for_eight > 0:
+            window.blit(backgroud, (0, 0))
+
+            heart_gorisontal.reset()
+            heart_gorisontal.update_gorisontal()
+
+            sans_atakyet.reset()
+
+            w1.draw_wall()
+            w2.draw_wall()
+            w3.draw_wall()
+            w4.draw_wall()
+
+            for b in bones_gorisontal_down:
+                b.update()
+            bones_gorisontal_down.draw(window)
+
+
+            bones_gorisontal_up.draw(window)
+            for b in bones_gorisontal_up:
+                b.update()
+
+            for bone_gorisontal_down in bones_gorisontal_down:
+                if bone_gorisontal_down.rect.collidepoint(230, 580):
+                    bone_gorisontal_down.kill()
+                    bone_gorisontal_down = Bones_gorisontal_down1('Кость_вертикальная.jpg', 630, 580, 10, 100, 3, 3, 3)
+                    bones_gorisontal_down.add(bone_gorisontal_down)
+
+            for bone_gorisontal_up in bones_gorisontal_up:
+                if bone_gorisontal_up.rect.collidepoint(670, 470):
+                    bone_gorisontal_up.kill()
+                    bone_gorisontal_up = Bones_gorisontal_up1('Кость_вертикальная.jpg', 260, 470, 10, 100, 4, 4, 4)
+                    bones_gorisontal_up.add(bone_gorisontal_up)
+            num_for_eight -= 1
+        else:
+            num_nine = False
+            play_again6 = True
+
+    if not num_nine:
+        if num_for_background9 > 0:
+            window.blit(backgroud, (0, 0))
+            num_for_background9 -= 1
+        else:
+            num_nine = True
+            play_again7 = False
+
+    if not play_again7:
+        if num_for_nine > 0:
+            window.blit(backgroud, (0, 0))
+
+            heart_vertical.reset()
+            heart_vertical.update_vertival()
+
+            sans_atakyet_right.reset()
+            sans_atakyet_left.reset()
+
+            w5.draw_wall()
+            w6.draw_wall()
+            w7.draw_wall()
+            w8.draw_wall()
+
+            bones_vertical_left.draw(window)
+            for b in bones_vertical_left:
+                b.update()
+
+            bones_vertical_right.draw(window)
+            for b in bones_vertical_right:
+                b.update()
+
+            for bone_vertical_right in bones_vertical_right:
+                if bone_vertical_right.rect.collidepoint(470, 130):
+                    bone_vertical_right.kill()
+                    bone_vertical_right = Bones_vertical_right1('Кость_горизонтальная.jpg', 470, 555, 100, 10, 4, 4, 4)
+                    bones_vertical_right.add(bone_vertical_right)
+
+            for bone_vertical_left in bones_vertical_left:
+                if bone_vertical_left.rect.collidepoint(355, 555):
+                    bone_vertical_left.kill()
+                    bone_vertical_left = Bones_vertical_left1('Кость_горизонтальная.jpg', 355, 130, 100, 10, 3, 3, 3)
+                    bones_vertical_left.add(bone_vertical_left)
+            num_for_nine -= 1
+        else:
+            num_ten = False
+            play_again7 = True
+
+    if not num_ten:
+        if num_for_background10 > 0:
+            window.blit(backgroud, (0, 0))
+            num_for_background10 -= 1
+        else:
+            num_ten = True
+            gameover = False
+
+    if not gameover:
+        heart_gorisontal.reset()
+        heart_gorisontal.update_gorisontal()
+
+        sans_pobezhden.reset()
+        textovoe_oblako.reset()
+        window.blit(gameover_text, (620, 220))
+
+        w1.draw_wall()
+        w2.draw_wall()
+        w3.draw_wall()
+        w4.draw_wall()
 
     display.update()
     clock.tick(60)
